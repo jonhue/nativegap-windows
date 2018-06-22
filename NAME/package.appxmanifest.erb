@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="<%= @app.package_id %>" Version="<%= @build.version %>.0" Publisher="CN=<%= @app.user.publisher %>" />
+  <mp:PhoneIdentity PhoneProductId="ea58fc0b-694b-4888-ba6c-bcf59cf0dea7" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName><%= @app.name %></DisplayName>
+    <PublisherDisplayName><%= @app.user.publisher %></PublisherDisplayName>
+    <Logo>images\_50x50.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" StartPage="<%= @build.start_url %>">
+      <uap:ApplicationContentUriRules>
+        <uap:Rule Match="<%= @app.url %>" Type="include" WindowsRuntimeAccess="all" />
+      </uap:ApplicationContentUriRules>
+      <uap:VisualElements DisplayName="<%= @app.name %>" Description="<%= @app.description %>" BackgroundColor="<%= @build.windows_tile_background || @app.accent %>" Square150x150Logo="images\_150x150.png" Square44x44Logo="images\_44x44.png">
+        <uap:DefaultTile Wide310x150Logo="images\_310x150.png" Square310x310Logo="images\_310x310.png" Square71x71Logo="images\_71x71.png" ShortName="<%= @app.name %>">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="images\_620x300.png" BackgroundColor="<%= @build.windows_splash_screen_background || @app.background %>" />
+        <uap:InitialRotationPreference>
+        <% if @app.orientation_portrait %><uap:Rotation Preference="portrait" /><% end %>
+        <% if @app.orientation_portrait_flipped %><uap:Rotation Preference="portraitFlipped" /><% end %>
+        <% if @app.orientation_landscape %><uap:Rotation Preference="landscape" /><% end %>
+        <% if @app.orientation_landscape_flipped %><uap:Rotation Preference="landscapeFlipped" /><% end %>
+        </uap:InitialRotationPreference>
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
